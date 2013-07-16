@@ -8,4 +8,4 @@
 hpx_external_example
 ====================
 
-Example of an out of tree development
+Example of an out of tree development for an application using HPX (see https://github.com/STEllAR-GROUP/hpx/)
