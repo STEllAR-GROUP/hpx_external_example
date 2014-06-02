@@ -81,24 +81,24 @@ int hpx_main()
                 iteration.push_back(async(temp, locality_id, x0, y0, max_iteration));
                 fAct.push_back(temp);
             }
-            wait_all(iteration);
+        }
+        wait_all(iteration);
 
-            std::cout << sizeX*sizeY << " calculations run in " << t.elapsed()
+        std::cout << sizeX*sizeY << " calculations run in " << t.elapsed()
                       << "s. Transferring from futures to general memory...\n";
-            t.restart();
-            for (int i = 0; i < sizeX; ++i)
+        t.restart();
+        for (int i = 0; i < sizeX; ++i)
+        {
+            for (int j = 0; j < sizeY; ++j)
             {
-                for (int j = 0; j < sizeY; ++j)
+                int it = iteration[i*sizeX + j].get();
+                for (int k = 0; k < 2; ++k)
                 {
-                    int it = iteration[i*sizeX + j].get();
-                    for (int k = 0; k < 2; ++k)
-                    {
-                        RGBApixel pix;
-                        pix.Blue = (it*255)/max_iteration;
-                        pix.Red = (it*255)/max_iteration;
-                        pix.Green = (it*255)/max_iteration;
-                        SetImage.SetPixel(i * 2 + k, j, pix);
-                    }
+                    RGBApixel pix;
+                    pix.Blue = (it*255)/max_iteration;
+                    pix.Red = (it*255)/max_iteration;
+                    pix.Green = (it*255)/max_iteration;
+                    SetImage.SetPixel(i * 2 + k, j, pix);
                 }
             }
         }
