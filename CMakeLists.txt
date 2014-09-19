@@ -4,8 +4,8 @@
 # file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 # Find and include HPX settings
-if(NOT HPX_ROOT)
-  message(FATAL_ERROR "HPX_ROOT not set, unable to find HPX!")
+if(HPX_ROOT AND NOT HPX_DIR)
+  set(HPX_DIR "${HPX_ROOT}/lib/cmake/hpx")
 endif()
 
 # Require a recent version of cmake
@@ -14,11 +14,7 @@ cmake_minimum_required(VERSION 2.8.4 FATAL_ERROR)
 # This project is C++ based.
 project(HPXExternalHelloWorld)
 
-# This adds the HPX cmake configuration directory to the search path.
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH}
-  ${HPX_ROOT}/share/cmake-${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION}/Modules)
-
-# Instruct cmake to find the HPX settings
+# Instruct cmake to find the HPX settings, it looks for HPXConfig.cmake in ${HPX_DIR}
 find_package(HPX)
 
 include_directories(${HPX_INCLUDE_DIR})
