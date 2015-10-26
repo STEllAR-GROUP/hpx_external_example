@@ -5,7 +5,7 @@
 
 # Find and include HPX settings
 if(HPX_ROOT AND NOT HPX_DIR)
-  set(HPX_DIR "${HPX_ROOT}/lib/cmake/hpx")
+  set(HPX_DIR "${HPX_ROOT}/lib/cmake/HPX")
 endif()
 
 # Require a recent version of cmake
